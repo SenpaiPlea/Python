@@ -1,0 +1,45 @@
+# 🚨 Don't change the code below 👇
+print("Welcome to Python Pizza Deliveries!")
+size = input("What size pizza do you want? S, M, or L ")
+add_pepperoni = input("Do you want pepperoni? Y or N ")
+extra_cheese = input("Do you want extra cheese? Y or N ")
+# 🚨 Don't change the code above 👆
+
+#Write your code below this line 👇
+if add_pepperoni == "Y":
+    pepperoni_boolean = bool(True)
+else:
+    pepperoni_boolean = bool(False)
+
+if extra_cheese == "Y":
+    cheese_boolean = bool(True)
+else:
+    cheese_boolean = bool(False)
+
+
+# if size == "S":
+#     if pepperoni_boolean == True & cheese_boolean == True:
+#         print ("you got both toppings stinky")
+
+if size == "S":
+    price = 15
+    if pepperoni_boolean == True:
+        price += 2
+    if cheese_boolean == True:
+        price += 1
+elif size == "M":
+    price = 20
+    if pepperoni_boolean == True:
+        price += 3
+    if cheese_boolean == True:
+        price += 1
+elif size == "L":
+    price = 25
+    if pepperoni_boolean == True:
+        price += 3
+    if cheese_boolean == True:
+        price += 1
+else: 
+    print("Something went wrong")
+
+print(f"Your final bill is: ${int(price)}.")
