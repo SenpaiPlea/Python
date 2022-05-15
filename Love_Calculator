@@ -1,0 +1,28 @@
+# 🚨 Don't change the code below 👇
+print("Welcome to the Love Calculator!")
+name1 = input("What is your name? \n")
+name2 = input("What is their name? \n")
+# 🚨 Don't change the code above 👆
+
+#Write your code below this line 👇
+lowerName1 = name1.lower()
+lowerName2 = name2.lower()
+
+trueScore1 = lowerName1.count("t") + lowerName1.count("r") + lowerName1.count("u") + lowerName1.count("e")
+trueScore2 = lowerName2.count("t") + lowerName2.count("r") + lowerName2.count("u") + lowerName2.count("e")
+
+loveScore1 = lowerName1.count("l") + lowerName1.count("o") + lowerName1.count("v") + lowerName1.count("e")
+loveScore2 = lowerName2.count("l") + lowerName2.count("o") + lowerName2.count("v") + lowerName2.count("e")
+
+nameScore1 = trueScore1 + trueScore2
+nameScore2 = loveScore1 + loveScore2
+nameScore = str(nameScore1) + str(nameScore2)
+
+nameScoreVal1 = int(nameScore)
+
+if nameScoreVal1 < 10 or nameScoreVal1 > 90:
+    print(f"Your score is {nameScoreVal1}, you go together like coke and mentos.")
+elif nameScoreVal1 >= 40 and nameScoreVal1 <= 50:
+    print(f"Your score is {nameScoreVal1}, you are alright together.")
+else:
+    print(f"Your score is {nameScoreVal1}.")
