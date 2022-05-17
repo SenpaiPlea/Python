@@ -1,0 +1,5 @@
+#Write your code below this row 👇
+evenTotal = 0
+for number in range(0, 101, 2):
+    evenTotal += number
+print(evenTotal)
