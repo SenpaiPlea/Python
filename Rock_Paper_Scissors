@@ -1,0 +1,80 @@
+import random
+import sys
+
+rock = '''
+    _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)
+'''
+
+paper = '''
+    _______
+---'   ____)____
+          ______)
+          _______)
+         _______)
+---.__________)
+'''
+
+scissors = '''
+    _______
+---'   ____)____
+          ______)
+       __________)
+      (____)
+---.__(___)
+'''
+
+#Write your code below this line 👇
+playerChoice = input("Rock paper scissors! What do you choose? Type 0 for Rock, 1 for Paper or 2 for Scissors.\n")
+# print(playerChoice)
+if playerChoice.isdigit() == True:
+  intPlayerChoice = int(playerChoice)
+                        
+else:
+  sys.exit("You chose a letter. You lose")
+
+computerChoice = random.randint(0, 2)
+
+if intPlayerChoice == 0:
+  print(f"You chose rock {rock}")
+  if computerChoice == 0:
+    print(f"The computer chose rock {rock}")
+    print("It's a draw!")
+  elif computerChoice == 1:
+    print(f"The computer chose paper {paper}")
+    print("You lost!")
+  elif computerChoice == 2:
+    print(f"The computer chose scissors {scissors}")
+    print("You won!")
+
+elif intPlayerChoice == 1:
+  print(f"You chose paper {paper}")
+  if computerChoice == 0:
+    print(f"The computer chose rock {rock}")
+    print("You won!")
+  elif computerChoice == 1:
+    print(f"The computer chose paper {paper}")
+    print("It's a draw!")
+  elif computerChoice == 2:
+    print(f"The computer chose scissors {scissors}")
+    print("You lost!")
+
+elif intPlayerChoice == 2:
+  print(f"You chose scissors {scissors}")
+  if computerChoice == 0:
+    print(f"The computer chose rock {rock}")
+    print("You lost!")
+  elif computerChoice == 1:
+    print(f"The computer chose paper {paper}")
+    print("You won!")
+  elif computerChoice == 2:
+    print(f"The computer chose scissors {scissors}")
+    print("It's a draw!")
+ 
+else:
+  print("Your choice isn't a valid number. You lose")
+
