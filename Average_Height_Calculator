@@ -12,7 +12,7 @@ numberOfStudents = 0
 for height in student_heights:
     totalHeight += height
 
-for students in student_heights:
+for student in student_heights:
     numberOfStudents += 1
 
 average = round(totalHeight / numberOfStudents)
