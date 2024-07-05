@@ -1,0 +1,129 @@
+from collections import defaultdict
+import string
+
+def read_system(file_path):
+    grid_coords = []
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for line in file:
+            line = line.strip()
+            char, x_coordinate, y_coordinate = line.split()
+            grid_coords.append((char, int(x_coordinate), int(y_coordinate)))
+    return grid_coords
+
+def pipe_shape(shape):
+    shapeType = ['═', '║', '╔', '╗', '╚', '╝', '╠', '╣', '╦', '╩']
+    if shape not in shapeType:
+        return {
+            "up": True,
+            "down": True,
+            "left": True,
+            "right": True,
+        }
+    
+    directions = {
+        "up": shape in ['║', '╚', '╝', '╠', '╣', '╩'],
+        "down": shape in ['║', '╔', '╗', '╠', '╣', '╦'],
+        "left": shape in ['═', '╗', '╝', '╣', '╦', '╩'],
+        "right": shape in ['═', '╔', '╚', '╠', '╦', '╩']
+    }
+
+    return directions
+
+node_map = {}
+
+def build_node_map(systemOutput):
+    for segment in systemOutput:
+        shape = segment[0]
+        pipeShape = pipe_shape(shape)
+        coordinates = (segment[1], segment[2])
+        node_map[coordinates] = {
+            "char": shape,
+            "neighbors": []
+        }
+
+    for coordinates, node in node_map.items():
+        x, y = coordinates
+        shape = node["char"]
+        pipeShape = pipe_shape(shape)
+        
+        if pipeShape["up"]:
+            checkUp = (x, y + 1)
+            if checkUp in node_map:
+                temp = node_map[checkUp]
+                if pipe_shape(temp["char"])["down"]:
+                    node["neighbors"].append(temp)
+                    temp["neighbors"].append(node)
+        
+        if pipeShape["down"]:
+            checkDown = (x, y - 1)
+            if checkDown in node_map:
+                temp = node_map[checkDown]
+                if pipe_shape(temp["char"])["up"]:
+                    node["neighbors"].append(temp)
+                    temp["neighbors"].append(node)
+        
+        if pipeShape["left"]:
+            checkLeft = (x - 1, y)
+            if checkLeft in node_map:
+                temp = node_map[checkLeft]
+                if pipe_shape(temp["char"])["right"]:
+                    node["neighbors"].append(temp)
+                    temp["neighbors"].append(node)
+        
+        if pipeShape["right"]:
+            checkRight = (x + 1, y)
+            if checkRight in node_map:
+                temp = node_map[checkRight]
+                if pipe_shape(temp["char"])["left"]:
+                    node["neighbors"].append(temp)
+                    temp["neighbors"].append(node)
+
+    return node_map
+
+def search(node, searched, target):
+    if node == target:
+        return True
+    else:
+        new_searched = searched + [node]
+        for neighbor in node["neighbors"]:
+            if neighbor not in searched:
+                if search(neighbor, new_searched, target):
+                    return True
+        return False  # no path to target from current node
+
+# File path for input
+file_path = r'C:\Users\Sen.DESKTOP-7O7B9L4\Downloads\coding_qual_input.txt'
+
+# Read system and build node map
+systemOutput = read_system(file_path)
+node_map = build_node_map(systemOutput)
+
+# Find source coordinates (assuming '*' as the source)
+sourceCoordinates = None
+for coordinates, node in node_map.items():
+    if node["char"] == '*':
+        sourceCoordinates = node
+        break
+
+# List to store exceptions
+exceptions = []
+
+# Find all exceptions (nodes with characters not in shapeType)
+shapeType = ['═', '║', '╔', '╗', '╚', '╝', '╠', '╣', '╦', '╩']
+for coordinates, node in node_map.items():
+    if node["char"] not in shapeType:
+        exceptions.append(node)
+
+# List to store results
+results = []
+
+# Perform search for each exception node
+for node in exceptions:
+    if search(node, [], sourceCoordinates):
+        results.append(node["char"])
+
+# Sort results alphabetically
+endList = ''.join(sorted(results))
+
+# Print the sorted list of connected sinks
+print(endList)
