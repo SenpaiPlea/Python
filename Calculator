@@ -1,0 +1,35 @@
+def operators(firstNumber):
+  operator = input("What is the operator being used?\n")
+  secondNumber = input("What is the second number being used for calculations?\n")
+
+  if operator == "+":
+    answer = int(firstNumber) + int(secondNumber)
+  elif operator == "-":
+    answer = int(firstNumber) - int(secondNumber)
+  elif operator == "*":
+    answer = int(firstNumber) * int(secondNumber)
+  elif operator == "/":
+    answer = int(firstNumber) / int(secondNumber)
+  else :
+    print("this is not a valid operator")
+    return None
+  print("Your answer is " +str(answer))
+  return answer
+
+# Infinite loop to keep the program running
+while True:
+    firstNumber = input("What is the first number being used for calculations?\n")
+    answer = operators(firstNumber)
+
+    while True:
+        continue_calculations = input("Press Y to continue calculations with this answer, or press N to start a new calculation.\n")
+
+        if continue_calculations in ["Y", "y"]:
+            firstNumber = answer
+            answer = operators(firstNumber)
+        elif continue_calculations in ["N", "n"]:
+            break
+        else:
+            print("Invalid input. Please press Y or N.")
+
+    # This will loop back to ask for the first number again if N is chosen
