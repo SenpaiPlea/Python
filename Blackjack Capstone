@@ -1,0 +1,85 @@
+'''
+The goal is to create the game of Blackjack. Number cards are worth their face value, face cards are worth 10, and aces are worth 1 or 11. The player is dealt two cards, and the dealer is dealt two cards, with one of the dealer's cards face up. The player can choose to hit (draw another card) or stand (keep their current hand). If the player goes over 21, they lose. If the player stands, the dealer reveals their face-down card and draws until their total is 17 or more. If the dealer goes over 21, the player wins. If the dealer stands, the player with the higher total wins. If both the player and dealer have the same total, it's a tie.
+'''
+#imports
+import random
+# Define the deck of cards
+deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
+deck_index = []
+card = 0
+player_hand = []
+dealer_hand = []
+
+print("Dealing cards...")
+# Define the function to deal a card and store its index
+def deal_card():
+    card = random.choice(deck)  # Select a random card from the deck
+    index = deck.index(card)    # Find the index of the selected card
+    deck_index.append(index)    # Store the index in the deck_index list
+    return card
+# Deal the initial cards
+player_hand.append(deal_card())
+player_hand.append(deal_card())
+dealer_hand.append(deal_card())
+dealer_hand.append(deal_card())
+#special case for aces [for both player and dealer]
+def ace_value(player_hand):
+  if 11 in player_hand and sum(player_hand) > 21:
+    player_hand.remove(11)
+    player_hand.append(1)
+
+def dealer_ace_value(dealer_hand):
+  if 11 in dealer_hand and sum(dealer_hand) > 21:
+    dealer_hand.remove(11)
+    dealer_hand.append(1)
+print(deck_index)   
+if dealer_hand[0] == 9:
+  print("The dealer's first card is a Jack")
+elif dealer_hand[0] == 10:
+  print("The dealer's first card is a Queen")
+elif dealer_hand[0] == 11:
+  print("The dealer's first card is a King")
+else:
+  print(f"The dealer's first card is {dealer_hand[0]}")
+#Play the game
+while True:
+  if sum(player_hand) < 21:
+    hit_or_stand = input(f"Your score is {sum(player_hand)}. Would you like to hit or stand? ")
+    if hit_or_stand in ["Hit","hit"]:
+      card = random.choice(deck)
+      player_hand.append(card)
+      ace_value(player_hand)
+      print(f"You drew a {card}.")
+    elif hit_or_stand in ["Stand","stand"]:
+      break
+    else:
+      print("that is not a valid input")
+  elif sum(player_hand) == 21:
+    print("Blackjack!")
+    break
+  elif sum(player_hand) > 21:
+    print(f"Your score is {sum(player_hand)}. You lose!")
+    break
+print("Revealing dealer's hand...")
+print(f"The dealer's hand is {sum(dealer_hand)}.")
+
+while True:
+  if sum(dealer_hand) < 17:
+    card = random.choice(deck)
+    dealer_hand.append(card)
+    ace_value(dealer_hand)
+    print(f"The dealer drew a {card}.")
+    print(f"The dealer's hand is {sum(dealer_hand)}.")
+  elif sum(dealer_hand) == 21:
+    print("Blackjack!")
+    break
+  elif sum(dealer_hand) > 21:
+    print(f"The dealer's score is {sum(dealer_hand)} and they bust. You win!")
+    break
+
+if sum(player_hand) > sum(dealer_hand) and sum(player_hand) < 21:
+  print(f"Your score is {sum(player_hand)} and the dealer's score is {sum(dealer_hand)}. You win!")
+elif sum(player_hand) == sum(dealer_hand):
+  print("It's a tie!")
+elif sum(player_hand) < sum(dealer_hand) and sum(dealer_hand) < 21:
+  print(f"Your score is {sum(player_hand)} and the dealer's score is {sum(dealer_hand)}. You lose!")
