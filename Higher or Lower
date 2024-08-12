@@ -1,0 +1,67 @@
+'''
+The goal of this project is to create the game higher or lower. The user will select whether they want to play the game in easy mode or hard mode. In easy mode, the user will have ten attempts to guess the randomly generated number. In hard mode, the user will have five attempts to guess the randomly generated number. When the user makes a guess, the program will tell them if their guess is too high or too low. The game ends when the user guesses the correct number or runs out of attempts.
+'''
+
+# Import the random module to generate a random number
+import random
+
+# Define a function to play the game in easy mode
+
+def play_easy_mode():
+    # Generate a random number between 1 and 100
+    number = random.randint(1, 100)
+    # Set the number of attempts to 10
+    attempts = 10
+    # Loop until the user runs out of attempts or guesses the correct number
+    while attempts > 0:
+        # Prompt the user to enter a guess
+        guess = int(input("Enter your guess: "))
+        # Check if the guess is correct
+        if guess == number:
+            print("Congratulations! You guessed the correct number.")
+            return
+        # Check if the guess is too high
+        elif guess > number:
+            print("Your guess is too high.")
+        # Check if the guess is too low
+        else:
+            print("Your guess is too low.")
+        # Decrement the number of attempts
+        attempts -= 1
+    # If the user runs out of attempts, print the correct number
+    print("Sorry, you ran out of attempts. The correct number was", number)
+
+# Define a function to play the game in hard mode
+
+def play_hard_mode():
+    # Generate a random number between 1 and 100
+    number = random.randint(1, 100)
+    # Set the number of attempts to 5
+    attempts = 5
+    # Loop until the user runs out of attempts or guesses the correct number
+    while attempts > 0:
+        # Prompt the user to enter a guess
+        guess = int(input("Enter your guess: "))
+        # Check if the guess is correct
+        if guess == number:
+            print("Congratulations! You guessed the correct number.")
+            return
+        # Check if the guess is too high
+        elif guess > number:
+            print("Your guess is too high.")
+        # Check if the guess is too low
+        else:
+            print("Your guess is too low.")
+        # Decrement the number of attempts
+        attempts -= 1
+
+    # If the user runs out of attempts, print the correct number
+    print("Sorry, you ran out of attempts. The correct number was", number)
+
+print("Welcome to the higher or lower game!")
+startingChoice = input("Do you want to play the game in easy mode or hard mode?")
+if startingChoice in ["easy mode", "Easy mode"]:
+    play_easy_mode()
+elif startingChoice in ["hard mode", "Hard mode"]:
+    play_hard_mode()
+
